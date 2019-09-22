@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="calculator" v-cloak>
+        <input v-model="num1">
+        <select v-model="operator">
+            <option v-for="item of operators"> {{item}} </option>
+        </select>
+        <input v-model="num2">
+        <button @click="calculate(operator)">确认</button>
+        <button>清空</button>
+        <span>输出结果：</span>
+        <input v-model="result">
+        <div>{{error}}</div>
+        <div>
+            <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+            <script>
+                var vm = new Vue({
+                    el: "#calculator",
+                    data: {
+                        num1: 0,
+                        num2: 1,
+                        operator: '',
+                        operators: ['+', '-', '*', '÷'],
+                        result: "",
+                        error: "",
+                    },
+                    methods: {
+                        calculate: function (i) {
+                            if (!(isNaN(this.num1) || isNaN(this.num2))) {
+                                switch (i) {
+                                    case '+':
+                                        this.error = "";
+                                        this.result = Number(this.num1) + Number(this.num2);
+                                        break;
+
+                                    case '-':
+                                        this.error = "";
+                                        this.result = Number(this.num1) - Number(this.num2);
+                                        break;
+
+                                    case '*':
+                                        this.error = "";
+                                        this.result = Number(this.num1) * Number(this.num2);
+                                        break;
+
+                                    case '÷':
+                                        this.error = "";
+                                        if (Number(this.num2) != 0)
+                                            this.result = Number(this.num1) / Number(this.num2);
+                                        else this.error = "除数不能为0";
+
+                                }
+                            }
+                            else this.error = "请输入数字"
+
+                        }
+                    }
+                });
+            </script>
+</body>
+
+</html>
